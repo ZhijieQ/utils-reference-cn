@@ -1,0 +1,12 @@
+version: '3'
+services:
+  proxy:
+    build:
+      context: ./
+      dockerfile: ./web/Dockerfile
+    network_mode: host
+
+# To use network, you need to user service name to comunicate with each service
+# networks:
+#   portfolio_frond:
+#     external: true
