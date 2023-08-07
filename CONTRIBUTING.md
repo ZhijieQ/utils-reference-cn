@@ -225,6 +225,9 @@ jobs:
 <a href="https://github.com/Alex-Programer" title="Alex">
   <img src="https://avatars.githubusercontent.com/u/115539090?v=4" width="42;" alt="Alex"/>
 </a>
+<a href="https://github.com/aixcyi" title="砹小翼">
+  <img src="https://avatars.githubusercontent.com/u/75880483?v=4" width="42;" alt="砹小翼"/>
+</a>
 <a href="https://github.com/LufsX" title="LufsX">
   <img src="https://avatars.githubusercontent.com/u/33221883?v=4" width="42;" alt="LufsX"/>
 </a>
@@ -242,9 +245,6 @@ jobs:
 </a>
 <a href="https://github.com/chaos-cn" title="chaos">
   <img src="https://avatars.githubusercontent.com/u/71205599?v=4" width="42;" alt="chaos"/>
-</a>
-<a href="https://github.com/aixcyi" title="砹小翼">
-  <img src="https://avatars.githubusercontent.com/u/75880483?v=4" width="42;" alt="砹小翼"/>
 </a>
 <a href="https://github.com/MarioMang" title="MarioMang">
   <img src="https://avatars.githubusercontent.com/u/3959555?v=4" width="42;" alt="MarioMang"/>
@@ -284,6 +284,9 @@ jobs:
 </a>
 <a href="https://github.com/13812700839" title="花殇">
   <img src="https://avatars.githubusercontent.com/u/58072506?v=4" width="42;" alt="花殇"/>
+</a>
+<a href="https://github.com/webeautiful" title="Albert">
+  <img src="https://avatars.githubusercontent.com/u/3364316?v=4" width="42;" alt="Albert"/>
 </a>
 <a href="https://github.com/dousha0w0" title="dousha0w0">
   <img src="https://avatars.githubusercontent.com/u/52566311?v=4" width="42;" alt="dousha0w0"/>
@@ -405,8 +408,8 @@ jobs:
 <a href="https://github.com/chyok" title="chyok">
   <img src="https://avatars.githubusercontent.com/u/32629225?v=4" width="42;" alt="chyok"/>
 </a>
-<a href="https://github.com/gaoxiaoduan" title="Jerrod Cole">
-  <img src="https://avatars.githubusercontent.com/u/69953511?v=4" width="42;" alt="Jerrod Cole"/>
+<a href="https://github.com/gaoxiaoduan" title="CoderDuan">
+  <img src="https://avatars.githubusercontent.com/u/69953511?v=4" width="42;" alt="CoderDuan"/>
 </a>
 <a href="https://github.com/cool9203" title="cool9203">
   <img src="https://avatars.githubusercontent.com/u/29609607?v=4" width="42;" alt="cool9203"/>

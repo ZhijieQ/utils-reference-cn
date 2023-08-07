@@ -240,6 +240,9 @@ Quick Reference
 <a href="https://github.com/Alex-Programer" title="Alex">
   <img src="https://avatars.githubusercontent.com/u/115539090?v=4" width="42;" alt="Alex"/>
 </a>
+<a href="https://github.com/aixcyi" title="砹小翼">
+  <img src="https://avatars.githubusercontent.com/u/75880483?v=4" width="42;" alt="砹小翼"/>
+</a>
 <a href="https://github.com/LufsX" title="LufsX">
   <img src="https://avatars.githubusercontent.com/u/33221883?v=4" width="42;" alt="LufsX"/>
 </a>
@@ -257,9 +260,6 @@ Quick Reference
 </a>
 <a href="https://github.com/chaos-cn" title="chaos">
   <img src="https://avatars.githubusercontent.com/u/71205599?v=4" width="42;" alt="chaos"/>
-</a>
-<a href="https://github.com/aixcyi" title="砹小翼">
-  <img src="https://avatars.githubusercontent.com/u/75880483?v=4" width="42;" alt="砹小翼"/>
 </a>
 <a href="https://github.com/MarioMang" title="MarioMang">
   <img src="https://avatars.githubusercontent.com/u/3959555?v=4" width="42;" alt="MarioMang"/>
@@ -299,6 +299,9 @@ Quick Reference
 </a>
 <a href="https://github.com/13812700839" title="花殇">
   <img src="https://avatars.githubusercontent.com/u/58072506?v=4" width="42;" alt="花殇"/>
+</a>
+<a href="https://github.com/webeautiful" title="Albert">
+  <img src="https://avatars.githubusercontent.com/u/3364316?v=4" width="42;" alt="Albert"/>
 </a>
 <a href="https://github.com/dousha0w0" title="dousha0w0">
   <img src="https://avatars.githubusercontent.com/u/52566311?v=4" width="42;" alt="dousha0w0"/>
@@ -420,8 +423,8 @@ Quick Reference
 <a href="https://github.com/chyok" title="chyok">
   <img src="https://avatars.githubusercontent.com/u/32629225?v=4" width="42;" alt="chyok"/>
 </a>
-<a href="https://github.com/gaoxiaoduan" title="Jerrod Cole">
-  <img src="https://avatars.githubusercontent.com/u/69953511?v=4" width="42;" alt="Jerrod Cole"/>
+<a href="https://github.com/gaoxiaoduan" title="CoderDuan">
+  <img src="https://avatars.githubusercontent.com/u/69953511?v=4" width="42;" alt="CoderDuan"/>
 </a>
 <a href="https://github.com/cool9203" title="cool9203">
   <img src="https://avatars.githubusercontent.com/u/29609607?v=4" width="42;" alt="cool9203"/>
@@ -595,7 +598,7 @@ Quick Reference
 [terryyoung.cn](http://ref.terryyoung.cn/)<!--rehype:target=_blank&class=contributing&data-info=👆每周一三五自动同步-->
 [hao.kim](https://ref.hao.kim)<!--rehype:target=_blank-->
 [quickref.binscor.top](https://quickref.binscor.top)<!--rehype:target=_blank&data-info=👆每天自动同步-->
-[fxkjnj.com](https://ref.fxkjnj.com/)<!--rehype:target=_blank-->
+[fxkjnj.com](https://ref.fxkjnj.com/)<!--rehype:target=_blank&data-info=👆每天自动同步-->
 <!--rehype:class=home-card home-links-->
 
 如果你有资源，可以很方便[部署 web 版](https://github.com/jaywcjlove/reference/issues/102#issue-1451649637)，这非常简单，只需要克隆 [gh-pages](https://github.com/jaywcjlove/reference/tree/gh-pages) 分支代码到你的静态服务就可以了，还可以使用 [docker](https://hub.docker.com/r/wcjiang/reference) 快捷部署 web 版。
