@@ -383,7 +383,7 @@ Quick Reference
 <a href="https://github.com/Moeyuuko" title="Moeyuuko">
   <img src="https://avatars.githubusercontent.com/u/14266681?v=4" width="42;" alt="Moeyuuko"/>
 </a>
-<a href="https://github.com/Mo3et" title="Monet Lee">
+<a href="https://github.com/mo3et" title="Monet Lee">
   <img src="https://avatars.githubusercontent.com/u/34803812?v=4" width="42;" alt="Monet Lee"/>
 </a>
 <a href="https://github.com/HanaNoryu" title="Noryu">
@@ -557,8 +557,8 @@ Quick Reference
 <a href="https://github.com/qwxingzhe" title="行者">
   <img src="https://avatars.githubusercontent.com/u/7071651?v=4" width="42;" alt="行者"/>
 </a>
-<a href="https://github.com/binscor" title="郑乃斌">
-  <img src="https://avatars.githubusercontent.com/u/37325821?v=4" width="42;" alt="郑乃斌"/>
+<a href="https://github.com/binscor" title="Zheng Nai Bin">
+  <img src="https://avatars.githubusercontent.com/u/37325821?v=4" width="42;" alt="Zheng Nai Bin"/>
 </a>
 <a href="https://github.com/Zeng-qh" title="都一样">
   <img src="https://avatars.githubusercontent.com/u/40046415?v=4" width="42;" alt="都一样"/>
@@ -624,6 +624,7 @@ Quick Reference
 [fxkjnj.com](https://ref.fxkjnj.com/)<!--rehype:target=_blank&data-info=👆每天自动同步-->
 [tool.sakura.vin](https://tool.sakura.vin/ref/)<!--rehype:target=_blank-->
 [guoyaxue.top](https://reference.guoyaxue.top/)<!--rehype:target=_blank-->
+[chenchen.site](https://img.chenchen.site/reference/)<!--rehype:target=_blank-->
 <!--rehype:class=home-card home-links-->
 
 如果你有资源，可以很方便[部署 web 版](https://github.com/jaywcjlove/reference/issues/102#issue-1451649637)，这非常简单，只需要克隆 [gh-pages](https://github.com/jaywcjlove/reference/tree/gh-pages) 分支代码到你的静态服务就可以了，还可以使用 [docker](https://hub.docker.com/r/wcjiang/reference) 快捷部署 web 版。

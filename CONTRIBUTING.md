@@ -354,7 +354,7 @@ jobs:
 <a href="https://github.com/Moeyuuko" title="Moeyuuko">
   <img src="https://avatars.githubusercontent.com/u/14266681?v=4" width="42;" alt="Moeyuuko"/>
 </a>
-<a href="https://github.com/Mo3et" title="Monet Lee">
+<a href="https://github.com/mo3et" title="Monet Lee">
   <img src="https://avatars.githubusercontent.com/u/34803812?v=4" width="42;" alt="Monet Lee"/>
 </a>
 <a href="https://github.com/HanaNoryu" title="Noryu">
@@ -528,8 +528,8 @@ jobs:
 <a href="https://github.com/qwxingzhe" title="行者">
   <img src="https://avatars.githubusercontent.com/u/7071651?v=4" width="42;" alt="行者"/>
 </a>
-<a href="https://github.com/binscor" title="郑乃斌">
-  <img src="https://avatars.githubusercontent.com/u/37325821?v=4" width="42;" alt="郑乃斌"/>
+<a href="https://github.com/binscor" title="Zheng Nai Bin">
+  <img src="https://avatars.githubusercontent.com/u/37325821?v=4" width="42;" alt="Zheng Nai Bin"/>
 </a>
 <a href="https://github.com/Zeng-qh" title="都一样">
   <img src="https://avatars.githubusercontent.com/u/40046415?v=4" width="42;" alt="都一样"/>
