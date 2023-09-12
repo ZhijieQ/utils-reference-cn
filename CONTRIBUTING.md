@@ -234,6 +234,9 @@ jobs:
 <a href="https://github.com/expoli" title="expoli">
   <img src="https://avatars.githubusercontent.com/u/31023767?v=4" width="42;" alt="expoli"/>
 </a>
+<a href="https://github.com/k23223" title="k23223">
+  <img src="https://avatars.githubusercontent.com/u/57606136?v=4" width="42;" alt="k23223"/>
+</a>
 <a href="https://github.com/eryajf" title="二丫讲梵">
   <img src="https://avatars.githubusercontent.com/u/33259379?v=4" width="42;" alt="二丫讲梵"/>
 </a>
@@ -291,8 +294,8 @@ jobs:
 <a href="https://github.com/13812700839" title="花殇">
   <img src="https://avatars.githubusercontent.com/u/58072506?v=4" width="42;" alt="花殇"/>
 </a>
-<a href="https://github.com/dousha0w0" title="dousha0w0">
-  <img src="https://avatars.githubusercontent.com/u/52566311?v=4" width="42;" alt="dousha0w0"/>
+<a href="https://github.com/dousha0w0" title="Haoran Xu">
+  <img src="https://avatars.githubusercontent.com/u/52566311?v=4" width="42;" alt="Haoran Xu"/>
 </a>
 <a href="https://github.com/Brid9e" title="Joe">
   <img src="https://avatars.githubusercontent.com/u/85558909?v=4" width="42;" alt="Joe"/>
@@ -377,6 +380,9 @@ jobs:
 </a>
 <a href="https://github.com/qinxiongzhou" title="Ryan Zhou">
   <img src="https://avatars.githubusercontent.com/u/33239096?v=4" width="42;" alt="Ryan Zhou"/>
+</a>
+<a href="https://github.com/SkylarLeo" title="SkylarLeo">
+  <img src="https://avatars.githubusercontent.com/u/107191230?v=4" width="42;" alt="SkylarLeo"/>
 </a>
 <a href="https://github.com/YLee9527" title="Terry Young">
   <img src="https://avatars.githubusercontent.com/u/18697332?v=4" width="42;" alt="Terry Young"/>
