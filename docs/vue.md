@@ -510,15 +510,53 @@ watch(count, function() {
 ```
 <!--rehype:className=wrap-text-->
 
+### 监听多个值
+<!--rehype:wrap-class=col-span-2 row-span-2-->
+
+```html
+<template>
+  <h1> {{ count1 }} </h1>
+  <h1> {{ count2 }} </h1>
+  <button @click="count1++">count1</button>
+  <button @click="count2++">count2</button>
+</template>
+
+<script setup>
+  import { watch, ref } from 'vue';
+  
+  const count1 = ref(0)
+  const count2 = ref(0)
+  
+  watch(
+    // 监听的表达式或函数
+    () => ({
+      count1: count1.value,
+      count2: count2.value
+    }),
+    // 回调函数
+    (newValue, oldValue) => {
+      // 在这里执行需要的逻辑
+      console.log('count1 或 count2 变化了：', newValue);
+    },
+    // immediate: true 表示在初始渲染时立即执行一次回调函数，以便处理初始的状态。
+    // deep: true 表示深度监听，即对 newValue 和 oldValue 进行深层比较，而不是简单的引用比较。
+    { immediate: true, deep: true }
+  );
+</script>
+
+<style scoped>
+</style>
+```
+
 ### 计算状态
-<!--rehype:wrap-class=col-span-2-->
 
 ```html
 <script setup>
 import { ref, computed } from 'vue';
 
 const text = ref('')
-// computed 的回调函数里，会根据已有并用到的状态计算出新的状态
+// computed 的回调函数里
+// 会根据已有并用到的状态计算出新的状态
 const capital = computed(function(){
   return text.value.toUpperCase();
 })
@@ -682,6 +720,390 @@ const value = inject(ProvideKey)
 后代组件注入父组件提供的数据
 
 <!--rehype:className=wrap-text -->
+
+## 路由
+
+### 1. 路由的基本使用
+
+#### 开启命名空间后，组件中读取state数据
+
+方式一：自己直接读取
+
+```javascript
+this.$store.state.personAbout.list
+```
+
+方式二：借助 mapState 读取：
+
+```js
+...mapState('countAbout',[
+  'sum','school','subject'
+]),
+```
+
+#### 开启命名空间后，组件中读取getters数据
+
+方式一：自己直接读取
+
+```javascript
+this.$store.getters[
+  'personAbout/firstPersonName'
+]
+```
+
+方式二：借助 mapGetters 读取：
+
+```js
+...mapGetters('countAbout',['bigSum'])
+```
+
+#### 开启命名空间后，组件中调用dispatch
+
+方式一：自己直接 dispatch
+
+```javascript
+this.$store.dispatch(
+  'personAbout/addPersonWang', person
+)
+```
+
+方式二：借助mapActions:
+
+```js
+...mapActions('countAbout',{
+  incrementOdd:'jia0dd',
+  incrementWait:'jiaWait'
+})
+```
+
+#### 开启命名空间后，组件中调用commit
+
+方式一：自己直接 commit
+
+```javascript
+this.$store.commit(
+  'personAbout/ADD_PERSON', person
+)
+```
+
+方式二：借助 mapMutations:
+
+```js
+...mapMutations('countAbout', {
+  increment:'JIA',decrement:'JIAN'
+}),
+```
+
+### 2. 路由的使用
+
+```javascript
+import VueRouter from 'vue-router'
+// 引入Luyou 组件
+import About from '../components/About'
+import Home from '../components/Home'
+// 创建router实例对象，去管理一组一组的路由规则
+const router = new VueRouter({
+  routes: [
+    path: '/about',
+    component: About
+    path: '/home',
+    component: Home
+  ]
+})
+// 暴露 router
+export default router
+```
+
+实现切换（active-class可配置高亮样式）
+
+```html
+<router-link
+  active-class="active"
+  to="/about">
+  About
+</router-link>
+```
+
+指定展示位置
+
+```html
+<router-diew></router-view>
+```
+
+几个注意点
+
+- 路由组件通常存放在pages文件夹，一般组件通常存放在components文件夹。
+- 通过切换，“隐藏”了的路由组件，默认是被销毁掉的，需要的时候再去挂载。
+- 每个组件都有自己的$route属性，里面存储着自己的路由信息。
+- 整个应用只有一个router，可以通过组件的srouter 属性获取到。
+<!--rehype:className=style-list-arrow-->
+
+### 3.路由的query
+
+```html
+<template>
+  <div>
+    <ul class="list">
+        <!-- to的对象写法 -->
+        <li v-for="item of data" :key="item.id">
+            <router-link 
+                class="link" 
+                :to="{
+                    path:'/home/message/mes',
+                    query: { id:item.id, title:item.mes }
+                }"
+            >{{item.mes}}</router-link>
+        </li>
+    </ul>
+    <hr>
+    <router-view></router-view>
+  </div>
+</template>
+
+<script>
+export default {
+    name:'HomeChild1',
+    data() {
+      return {
+        data:[
+            {id:1,mes:"消息1"},
+            {id:2,mes:"消息2"},
+            {id:3,mes:"消息3"}
+        ]
+      }
+    },
+}
+</script>
+
+<style scoped>
+  .list { margin-left:80px; }
+  .link{
+    color: orange;
+    text-decoration: none;
+    background-color: skyblue;
+  }
+</style>
+```
+
+> 接收参数 `{{$route.query.id}}`
+
+#### 跳转路由并携带参数
+
+```html
+<li v-for="item of data" :key="item.id">
+    <router-link 
+        class="link" 
+        :to="`/home/message/mes?id=${item.id}&title=${item.mes}`"
+    >
+      {{item.mes}}
+    </router-link>
+</li>
+```
+
+### 4. 命名路由
+
+```javascript
+routes:[
+    { path:'/about', component:AboutBody },
+    {
+        path:'/home',
+        component:HomeBody,
+        children:[
+            { path:'news', component:HomeChild },
+            { 
+              path:'message',
+              component:HomeChild1,
+              //多级路由
+              children:[
+                  { name:'richu', path:'mes', component:HomeMessage }
+              ]
+            }
+        ]
+    }
+]
+```
+
+使用
+
+```html
+<router-link :to="{ 
+  name:'',
+  path:'/home/message/mes',
+​  query:{ id:item.id,title:item.mes }
+}">
+```  
+
+### 5.params参数的使用
+
+#### 1. 声明接收
+
+```javascript
+children:[
+    {
+        name:'richu',
+        path:'mes/:id/:title',
+        component:HomeMessage
+    }
+]
+```
+
+#### 2. 传递
+
+```html
+<li v-for="item of data" :key="item.id">
+    <router-link 
+      class="link" 
+      :to="`/home/message/mes/${item.id}/${item.mes}`"
+      >{{item.mes}}
+    </router-link>
+</li>
+```
+
+#### 3. 接收
+
+```html
+<li>编号{{$route.params.id}}</li>
+<li>标题{{$route.params.title}}</li>
+```
+
+### 6.props的使用
+
+路由的props配置
+
+```js
+{
+  name: 'xiangqing',
+  path:'detail/:id',
+  component:Detail
+}
+```
+
+作用：让路由组件更方便的收到参数
+
+```javascript
+//第一种写法：props值为对象，该对象中所有的key-value的组合最终都会通过props传给Detai1组件
+// props:{a:900]
+//第二种写法：props值为布尔值，布尔值为true，则把路由收到的所有params参数通过props传给Detai1组件
+// props:true
+//第三种写法：props值为函数，该函数返回的对象中每一组key-value都会通过props传给Detail组件
+props(route){
+  return {
+    id:route.query.id,
+    title:route.query.title
+  }
+}
+```
+
+\<router-link> 的 replace 属性
+
+1. 作用：控制路由跳转时操作浏览器历史记录的模式
+2. 浏览器的历史记录有两种写入方式：分别为 push和replace,默认为push
+3. 如何开启replace 模式： `push` 是追加历史记录,`replace` 是替换当前记录[路由跳转时候 `<router-link replace>News\</router-link>`]
+
+### 7. 编程式路由导航
+
+作用：不借助router-link实现路由跳转，让跳转更加灵活
+
+```javascript
+this.$router.push({
+    name:'xiangqing',
+    params:{
+        id: xxx,
+        title: xxx
+        // 实现路由跳转，让路由跳转更加灵活
+    }
+})
+this.$router.replace({
+    name:'xiangqing',
+    params:{
+        id:xxx,
+        title:xxx
+    }
+})
+this.$router.forward();
+this.$router.back();
+this.$router.go(3);
+```
+
+### 8.缓存路由组件
+
+让不展示的路由组件保持挂载，不被销毁，示例：
+
+```html
+<keep-alive include="news">
+    <router-view></router-view>
+</keep-alive>
+```
+
+- `include` 里面写模块名,用于保存指定的模块
+
+### 9.新生命周期钩子
+
+> 作用：路由组件独有的，用于捕获路由组件的激活状态
+
+- `activated` 路由组件被激活时触发
+- `deactivated` 路由组件失活时触发
+
+## 路由守卫
+
+### 1.前置路由守卫
+
+```javascript
+route.beforeEach((from,to,next)=>{
+    if (to.meta.isAuth){
+        alert("1");
+        next();
+    }else{
+        next();
+    }
+})
+```
+
+前置路由
+
+### 2.后置路由守卫
+
+```javascript
+route.afterEach((from,to)=>{
+    console.log(to);
+    document.title=from.meta.title;
+})
+```
+
+后置路由
+
+### 3.独享路由守卫
+
+```javascript
+{
+    path:'news',
+    component:HomeChild,
+    meta:{title:"新闻"},
+        beforeEnter: (from,to,next)=>{
+
+        }
+},
+```
+
+独享路由守卫只有前置路由守卫没有后置路由守卫
+
+### 4.组件内路由守卫
+
+通过路由规则，进入该组件时被调用
+
+```javascript
+beforeRouteEnter (to, from, next) {
+    // ...
+}
+```
+
+通过路由规则，离开组件时被调用
+
+```js
+beforeRouteLeave (to, from, next) {
+    // ...
+}
+```
 
 Vue 中使用 TypeScript
 ---

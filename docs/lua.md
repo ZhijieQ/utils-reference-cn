@@ -97,7 +97,9 @@ local html = [[
 <html>
 <head></head>
 <body>
-    <a href="https://www.twle.cn/">简单编程</a>
+  <a href="https://www.twle.cn/">
+    简单编程
+  </a>
 </body>
 </html>
 ]]
@@ -211,6 +213,7 @@ print(x, y) -- 3, 1
 
 ```lua
 local tab = {}
+
 tab.one = 2
 tab.two = 1
 
@@ -243,13 +246,13 @@ print(tab.one, tab.two) -- 1    2
 
 :-   | :-
 :-   | :-
-\+   | 加法
-\-   | 减法
-\*   | 乘法
-\/   | 除法
-\%   | 取余，求出除法的余数
-\^   | 乘幂，计算次方
-\-   | 负号，取负值
+`+`   | 加法
+`-`   | 减法
+`*`   | 乘法
+`/`   | 除法
+`%`   | 取余，求出除法的余数
+`^`   | 乘幂，计算次方
+`-`   | 负号，取负值
 
 ```lua
 local a, b = 4, 3
@@ -287,7 +290,27 @@ print(a ^ b) -- 64.0
    print(type(tonumber("12"))) -- number
    ```
 <!--rehype:className=style-round-->
-<!--rehype:className=wrap-text -->
+
+### goto 语法
+<!--rehype:wrap-class=col-span-2-->
+
+```lua
+local function isValidNumber(num)
+    if type(num) ~= "number" then
+        goto invalidNumber   -- 无条件地跳转到代码中的标签 `::invalidNumber::`
+    end
+
+    print("Valid number:", num)
+    return true
+
+    ::invalidNumber::
+    print("Invalid number:", num)
+    return false
+end
+
+isValidNumber(123)    -- 输出: Valid number: 123
+isValidNumber("abc")  -- 输出: Invalid number: abc
+```
 
 条件语句
 ---
@@ -526,8 +549,8 @@ string.lower("STR") -- str
 
 -- 指定替换的字符串个数, 最后一个参数可选，默认是全部替换
 string.gsub("aaaa", "a", "b", 3) -- bbba  3
-string.gsub("Today is 29/01/2019", "%d%d/%d%d/%d%d%d%d", "good day.")
--- Today is a good day. 1
+string.gsub("Today is 29/01/2019", "%d%d/%d%d/%d%d%d%d", "a good day.")
+-- Today is a good day.
 
 -- 查找第一个匹配的字符串，第三个参数可以提供开始查找的位置，默认从 1 开始
 -- 如果未找到，则返回 nil
@@ -629,7 +652,7 @@ local g = math.max(1, 2, 3) -- 3
 local h = math.min(1, 2, 3) -- 1
 
 -- 返回参数的平方根
-local r = math.sqrt(3) -- 9
+local r = math.sqrt(9) -- 3
 ```
 
 ### 工具方法
@@ -678,10 +701,10 @@ math.cos(math.pi) -- -1.0
 math.tan(math.pi / 4) -- 1.0
 
 -- 反正弦方法（以下皆是以弧度表示）
-math.acos(1.0) -- 0.0
+math.asin(1.0) -- 1.5707963267949
 -- 反余弦方法
-math.acos(1.0) -- 1.5707963267949
--- 反正弦方法
+math.acos(1.0) -- 0.0
+-- 反正切方法
 math.atan(1.0) -- 0.78539816339745
 
 -- 角度转换为弧度

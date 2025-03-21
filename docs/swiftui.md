@@ -233,23 +233,9 @@ Map(coordinateRegion: $region,
 Layout(布局)
 ----
 
-### Background
-
-将图像用作背景
-
-```swift
-Text("Hello World")
-    .font(.largeTitle)
-    .background(
-        Image("hello_world")
-            .resizable()
-            .frame(width: 100, height: 100)
-    )
-```
-
 ### VStack
 
-以垂直线排列其子项的视图
+`VStack`是 `垂直` 堆栈布局，用于将子视图垂直排列。默认将子视图从上到下排列
 
 ```swift
 VStack (alignment: .center, spacing: 20){
@@ -259,13 +245,11 @@ VStack (alignment: .center, spacing: 20){
 }
 ```
 
-创建静态可滚动列表。文档 - [VStack](https://developer.apple.com/documentation/swiftui/vstack)
+文档 - [VStack](https://developer.apple.com/documentation/swiftui/vstack)
 
 ### HStack
 
-将其子级排列在一条水平线上的视图。
-
-创建静态可滚动列表
+`HStack`是 `水平` 堆栈布局，用于将子视图水平排列。默认将子视图从左到右排列
 
 ```swift
 HStack (alignment: .center, spacing: 20){
@@ -277,9 +261,22 @@ HStack (alignment: .center, spacing: 20){
 
 文档 - [HStack](https://developer.apple.com/documentation/swiftui/hstack)
 
-### LazyVStack
+### ZStack
 
-`iOS 14` 一种视图，将其子级排列在垂直增长的线中，仅在需要时创建项。
+`ZStack`是 `层叠` 堆栈布局，用于将子视图重叠在一起。按照添加的顺序从下到上排列子视图，即先添加的视图会在下面，后添加的视图会覆盖在上面
+
+```swift
+ZStack {
+    Text("Hello")
+    Text("World")
+}
+```
+
+文档 - [ZStack](https://developer.apple.com/documentation/swiftui/zstack)
+
+### 懒加载 Lazy
+
+`iOS 14.0` 之后新增的视图，仅在需要时才会创建和渲染
 
 ```swift
 ScrollView {
@@ -291,58 +288,30 @@ ScrollView {
 }
 ```
 
-文档 - [LazyVStack](https://developer.apple.com/documentation/swiftui/lazyvstack)
+- 懒加载：只有当子视图进入可视区域时，才会被创建和渲染
+- 自适应：子视图的宽高可以自适应
+- 性能优化：适用于大量子视图或动态内容的场景
+<!--rehype:className=style-round-->
 
-### LazyHStack
-<!--rehype:wrap-class=col-span-2-->
-
-将子项排列在水平增长的线中的视图，仅在需要时创建项。
-
-```swift
-ScrollView(.horizontal) {
-    LazyHStack(alignment: .center, spacing: 20) {
-        ForEach(1...100, id: \.self) {
-            Text("Column \($0)")
-        }
-    }
-}
-```
-
-文档 - [LazyHStack](https://developer.apple.com/documentation/swiftui/lazyhstack)
-
-### ZStack
-
-覆盖其子项的视图，使子项在两个轴上对齐。
-
-```swift
-ZStack {
-    Text("Hello")
-        .padding(10)
-        .background(Color.red)
-        .opacity(0.8)
-    Text("World")
-        .padding(20)
-        .background(Color.red)
-        .offset(x: 0, y: 40)
-}
-```
-
-文档 - [ZStack](https://developer.apple.com/documentation/swiftui/zstack)
+- 文档 - [LazyVStack](https://developer.apple.com/documentation/swiftui/lazyvstack)
+- 文档 - [LazyHStack](https://developer.apple.com/documentation/swiftui/lazyhstack)
 
 ### LazyVGrid
-<!--rehype:wrap-class=col-span-2-->
 
-容器视图，将其子视图排列在垂直增长的网格中，仅在需要时创建项目。
+容器视图，将其子视图排列在`垂直`增长的网格中，仅在需要时创建项目
 
 ```swift
-var columns: [GridItem] = Array(repeating: .init(.fixed(20)), count: 5)
+var columns: [GridItem] = 
+  Array(
+    repeating: .init(.fixed(20)), count: 5
+  )
 
 ScrollView {
-    LazyVGrid(columns: columns) {
-        ForEach((0...100), id: \.self) {
-            Text("\($0)").background(Color.pink)
-        }
+  LazyVGrid(columns: columns) {
+    ForEach((0...100), id: \.self) {
+       Text("\($0)").background(Color.pink)
     }
+  }
 }
 ```
 
@@ -350,7 +319,7 @@ ScrollView {
 
 ### LazyHGrid
 
-一种容器视图，将其子视图排列在水平增长的网格中，仅在需要时创建项目。
+容器视图，将其子视图排列在`水平`增长的网格中，仅在需要时创建项目
 
 ```swift
 var rows: [GridItem] =
@@ -360,8 +329,8 @@ var rows: [GridItem] =
 
 ScrollView(.horizontal) {
   LazyHGrid(rows: rows, alignment: .top) {
-    ForEach((0...100), id: \.self) {
-      Text("\($0)").background(Color.pink)
+     ForEach((0...100), id: \.self) {
+       Text("\($0)").background(Color.pink)
     }
   }
 }
@@ -396,6 +365,20 @@ HStack {
 ```
 
 文档 - [Divider](https://developer.apple.com/documentation/swiftui/divider)
+
+### Background
+
+将图像用作背景
+
+```swift
+Text("Hello World")
+    .font(.largeTitle)
+    .background(
+        Image("hello_world")
+            .resizable()
+            .frame(width: 100, height: 100)
+    )
+```
 
 Input(输入)
 ---
@@ -1198,6 +1181,172 @@ struct SheetDetail: Identifiable {
 ```
 
 文档 - [ActionSheet](https://developer.apple.com/documentation/swiftui/actionsheet)
+
+SwiftData
+---
+
+### SwiftData声明
+
+```swift
+import SwiftData
+// 通过@Model宏来定义模型schema
+// 支持基础值类型String、Int、CGFloat等
+// 支持复杂类型Struct、Enum、Codable、集合等
+@Model
+class Person {
+    var id: String
+    var name: String
+    var age: Int
+    init(name: String, age: Int) {
+        self.id = UUID().uuidString
+        self.name = name
+        self.age = age
+    }
+}
+```
+
+### 声明@Attribute
+
+```swift
+@Model
+class Person {
+    // @Attribute(.unique)为id添加唯一约束
+    @Attribute(.unique) var id: String
+    var name: String
+    var age: Int
+    init(name: String, age: Int) {
+        self.id = UUID().uuidString
+        self.name = name
+        self.age = age
+    }
+}
+```
+
+### 声明@Relationship
+
+```swift
+@Model
+class Person {
+    @Attribute(.unique) 
+    var id: String
+    var name: String
+    var age: Int
+    // @Relationship(deleteRule: .cascade) 
+    // 使得Person在数据库里被删除时
+    // 删除掉所有关联的students
+    @Relationship(deleteRule: .cascade)
+    var students: [Student]? = []
+    init(name: String, age: Int) {
+        self.id = UUID().uuidString
+        self.name = name
+        self.age = age
+    }
+}
+```
+
+### 声明Transient
+
+```swift
+@Model
+class Person {
+    @Attribute(.unique) 
+    var id: String
+    var name: String
+    // @Transient表示不要持久化这个属性
+    // 需要提供一个默认值
+    @Transient
+    var age: Int = 0
+    init(name: String) {
+        self.id = UUID().uuidString
+        self.name = name
+    }
+}
+```
+
+### @Query
+
+<!--rehype:wrap-class=col-span-2-->
+
+```swift
+struct ContentView: View  {
+    // Query 可以高效地查询大型数据集，并自定义返回内容的方式，如排序、过滤
+    @Query(sort: \.age, order: .reverse) var persons: [Person]
+    @Environment(\.modelContext) var modelContext
+    var body: some View {
+       NavigationStack() {
+          List {
+             ForEach(trips) { trip in 
+                 // ...
+             }
+          }
+       }
+    }
+}
+```
+
+### 构建ModelContainer
+
+<!--rehype:wrap-class=col-span-2-->
+
+```swift
+// 用 Schema 进行初始化
+let container = try ModelContainer(for: Person.self)
+// 用配置（ModelConfiguration）初始化
+let container = try ModelContainer(
+    for: Person.self,
+    configurations: ModelConfiguration(url: URL("path"))
+)
+// 通过View 和 Scene 的修饰器来快速关联一个 ModelContainer
+struct SwiftDataDemoApp: App {
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+        }
+        .modelContainer(for: Person.self)
+    }
+}
+```
+
+### 构建ModelContext
+
+```swift
+// 在配置Model Container完成后
+// 通过Environment 来访问到 modelContext
+struct ContextView : View {
+    @Environment(\.modelContext) 
+    private var context
+}
+// 或者直接获取共享的主Actor context
+let context = container.mainContext
+// 或者直接初始化一个新的Context
+let context = ModelContext(container)
+```
+
+### 增、删、改
+
+```swift
+let person = Person(name: "Lily", age: 10)
+// Insert a new person
+context.insert(person)
+// Delete an existing person
+context.delete(person)
+// Manually save changes to the context
+try context.save()
+```
+
+### 查询
+
+<!--rehype:wrap-class=col-span-2-->
+
+```swift
+let personPredicate = #Predicate<Person> {
+    $0.name == "Lily" &&
+    $0.age == 10
+}
+
+let descriptor = FetchDescriptor<Person>(predicate: personPredicate)
+let persons = try? context.fetch(descriptor)
+```
 
 另见
 ---

@@ -316,7 +316,7 @@ server {
 ### 重定向(301永久)
 <!--rehype:wrap-class=row-span-2-->
 
-将 www.example.com 重定向到 example.com
+将 <www.example.com> 重定向到 example.com
 
 ```nginx
 server {
@@ -811,27 +811,38 @@ location ~ \/public\/(css|js|img)\/.*\.(js|css|gif|jpg|jpeg|png|bmp|swf) {
 }
 ```
 
-### 阻止常见攻击
+### ulimit 不继承系统设置的问题
 <!--rehype:wrap-class=col-span-2-->
 
-#### base64编码的网址
+- 执行 status 命令
 
-```nginx
-location ~* "(base64_encode)(.*)(\()" {
-    deny all;
-}
-```
+  ```bash
+  sudo service nginx status
+  ```
 
-#### javascript eval() url
+  执行 status 命令，看到 Loaded: loaded (/lib/systemd/system/nginx.service;...) 这一行的nginx.service 文件位置
 
-```nginx
-location ~* "(eval\()" {
-    deny all;
-}
-```
+- 打开 service 文件
+
+  ```bash
+  sudo vim /lib/systemd/system/nginx.service
+  ```
+
+- 修改 service 中的配置
+  找到 `[Service]` 部分，将 `LimitNOFILE=65535` 添加到该部分
+
+  ```bash
+  [Service]
+  ...
+  LimitNOFILE=65535
+  ...
+  ```
+<!--rehype:className=style-timeline-->
+
+解决 `systemctl` 管理的 ulimit 不继承系统设置的问题
 
 ### Gzip 配置
-<!--rehype:wrap-class=col-span-4 row-span-2-->
+<!--rehype:wrap-class=col-span-4-->
 
 ```nginx
 gzip  on;
@@ -851,14 +862,116 @@ gzip_types
 gzip_disable  "msie6";
 ```
 
+### 阻止常见攻击
+<!--rehype:wrap-class=col-span-3-->
+
+#### base64编码的网址
+
+```nginx
+location ~* "(base64_encode)(.*)(\()" {
+    deny all;
+}
+```
+
+#### javascript eval() url
+
+```nginx
+location ~* "(eval\()" {
+    deny all;
+}
+```
+
 ### 使网站不可索引
-<!--rehype:wrap-class=col-span-2-->
+<!--rehype:wrap-class=col-span-3-->
 
 ```nginx
 add_header X-Robots-Tag "noindex";
 
 location = /robots.txt {
   return 200 "User-agent: *\nDisallow: /\n";
+}
+```
+
+### 获取请求ip
+<!--rehype:wrap-class=col-span-3-->
+
+```nginx
+server {
+  listen 80;
+  server_name xxx.top;
+
+  location / {
+    access_log /data/logs/nginx/json_ip.log json;
+    proxy_set_header Host $http_host;
+        proxy_set_header X-Real-Ip $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://127.0.0.1:9999;
+  }
+}
+
+server {
+  listen 9999;
+
+  location / {
+    access_log off;
+    default_type application/json;
+    return 200 "{\"ip\":\"$http_X_Real_Ip\"}";
+  }
+}
+```
+
+### 判断请求参数
+<!--rehype:wrap-class=col-span-3-->
+
+```nginx
+# 判断多个参数示例
+set $flagts 0;
+if ( $arg_aaa ~ "^aaa" ) {
+    set $flagts "${flagts}1";
+}
+if ( $arg_bbb ~ "^bbb" ) {
+    set $flagts "${flagts}1";
+}
+if ( $flagts = "011" ) {
+    return 200;
+}
+```
+
+### 流量镜像配置
+<!--rehype:wrap-class=col-span-3-->
+
+```nginx
+server {
+    listen       80;
+    server_name 192.168.1.1;
+
+    location = /mirror1 {
+        internal;
+        #### address1 ####
+        proxy_set_header Host mirror1.com;
+        proxy_pass http://127.0.0.1:8008/api/service/list;
+    }
+
+    location = /mirror2 {
+        internal;
+        #### address2 ####
+        proxy_set_header Host mirror2.com;
+        proxy_pass http://127.0.0.1:8009/api/service/list;
+    }
+
+    # 只转发这个接口
+    location /api/service/list {
+        access_log /data/logs/nginx/json_test_to_mirror.log json;
+        mirror /mirror1;
+        mirror /mirror2;
+        proxy_pass http://127.0.0.1:8007;
+    }
+
+    location / {
+        access_log /data/logs/nginx/json_test.log json;
+        proxy_pass http://192.168.1.1:8007;
+    }
+
 }
 ```
 

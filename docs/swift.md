@@ -11,7 +11,7 @@ Swift 备忘清单
 
 ```swift
 var score = 0 // 变量
-let pi = 3.14 // 常数
+let pi = 3.14 // 常量
 
 var greeting = "Hello"
 var numberOfToys = 8
@@ -169,7 +169,7 @@ numberOfToys += 1
 print(numberOfToys) // 打印“9”
 ```
 
-### 常数
+### 常量声明
 
 常量用 `let` 声明：
 
@@ -187,7 +187,7 @@ let numberOfToys: Int = 8
 let isMorning: Bool = true
 ```
 
-常量是不可变的。它们的值不能改变：
+常量 `let` 一旦设定，在程序运行时就无法改变其值:
 
 ```swift
 let numberOfToys: Int = 8
@@ -195,7 +195,7 @@ numberOfToys += 1
 // ❌ 错误：numberOfToys 不可变
 ```
 
-### 计算变量（get 和 set）
+### 计算属性（get 和 set）
 <!--rehype:wrap-class=row-span-3-->
 
 ```swift
@@ -385,9 +385,11 @@ switch secondaryColor {
   case "orange":
     print("红色和黄色的混合")
   case "purple":
-    print("红色和蓝色的混合") 
-  default: 
-    print("这可能不是辅助颜色") 
+    print("红色和蓝色的混合")
+  case "green":
+    print("蓝色和黄色的混合")
+  default:
+    print("这可能不是辅助颜色")
 }
 // 打印: 蓝色和黄色的混合
 ```
@@ -519,11 +521,15 @@ let zeroToThree = 0...3
 // zeroToThree: 0, 1, 2, 3
 ```
 
+- `a...b` 闭区间 (Closed Range) 包括a和b
+- `a..<b` 半开区间 (Half-Open Range) 包括a，不包括b
+- `...b`  单侧区间 (One-Sided Range) 包括b
+
 ### stride() 函数
 
 ```swift
-for oddNum in stride(from: 1, to: 5, by: 2) {
-  print(oddNum)
+for num in stride(from: 1, to: 5, by: 2) {
+  print(num)
 }
 // 打印: 1
 // 打印: 3
@@ -542,6 +548,7 @@ for char in "hehe" {
 ```
 
 ### continue 关键字
+<!--rehype:wrap-class=row-span-2-->
 
 ```swift
 for num in 0...5 {
@@ -558,6 +565,7 @@ for num in 0...5 {
 `continue` 关键字将强制循环继续进行下一次迭代
 
 ### break 关键字
+<!--rehype:wrap-class=row-span-2-->
 
 ```swift
 for char in "supercalifragilistice" {
@@ -573,16 +581,28 @@ for char in "supercalifragilistice" {
 // 打印: r
 ```
 
+`break` 关键字中断当前循环
+
 ### 使用下划线
 
 ```swift
 for _ in 1...3 {
-  print("Olé")
+  print("Ole")
 }
-// 打印: Olé
-// 打印: Olé
-// 打印: Olé
+// 打印: Ole
+// 打印: Ole
+// 打印: Ole
 ```
+
+### 遍历指定范围
+
+```swift
+for i in 0...10 {
+  print(i) //0 到 10
+}
+```
+
+封闭指定范围操作符（...）
 
 ### while 循环
 
@@ -590,14 +610,41 @@ for _ in 1...3 {
 var counter = 1
 var stopNum = Int.random(in: 1...10)
 
+// 循环打印，直到满足停止条件
 while counter < stopNum {
   print(counter)
   counter += 1
 }
-// 循环打印，直到满足停止条件
 ```
 
 `while` 循环接受一个条件，并在所提供的条件为 `true` 时持续执行其主体代码。如果条件从不为假，则循环将继续运行，程序将陷入`无限循环`
+
+### repeate while
+
+```swift
+var counter = 1
+
+repeat {
+  print(counter)
+  counter += 1
+} while counter <= 5
+```
+
+至少执行一次
+
+### 遍历字典对象
+
+```swift
+// 创建一个字典
+var myDictionary = [
+  "name": "John", "age": 25
+]
+
+// 使用for-in循环遍历字典
+for (key, value) in myDictionary {
+    print("\(key): \(value)")
+}
+```
 
 数组和集合
 ----
@@ -641,6 +688,16 @@ print(vowels[4])  // 打印: u
 var snowfall = [2.4, 3.6, 3.4, 1.8, 0.0]
 // 明确类型：
 var temp: [Int] = [33, 31, 30, 38, 44]
+```
+
+### 用默认值初始化
+
+```swift
+var teams = [Int](repeating: 0, count: 3)
+print(teams) // 打印: [0, 0, 0]
+// 或者Array类型
+var sizes = Array<Int>(repeating: 0, count: 3)
+print(sizes) // 打印: [0, 0, 0]
 ```
 
 ### .append() 方法和 += 运算符
@@ -727,7 +784,7 @@ oddNumbers.remove(2)
 oddNumbers.removeAll()
 ```
 
-### .contains()
+### .contains() 检测数组中的值
 
 ```swift
 var names: Set = ["Rosa", "Doug", "Waldo"]
@@ -1001,6 +1058,8 @@ func washCar() -> Void {
 }
 ```
 
+返回值为空的函数（void）
+
 ### 调用函数
 
 ```swift
@@ -1034,7 +1093,7 @@ func convertFracToDec(numerator: Double, denominator: Double) -> Double {
 } 
 
 let decimal = convertFracToDec(numerator: 1.0, denominator: 2.0) 
-print(decimal) // Prints:  0.5 
+print(decimal) // 打印:  0.5 
 ```
 
 ### 省略参数标签
@@ -1103,7 +1162,7 @@ greet(person: "Aliya") // Hello Aliya
 ```swift
 var currentSeason = "冬天" 
 
-func season(month: Int, name: inout String) {
+func season(month:Int, name:inout String) {
   switch month {
     case 1...2:
       name = "冬天 ⛄️" 
@@ -1142,8 +1201,66 @@ func getFirstInitial(from name: String?) -> String? {
   return name?.first
 }
 ```
+<!--rehype:className=wrap-text-->
 
 函数可以接受可选类型并返回可选类型。当一个函数不能返回请求类型的合理实例时，它应该返回 `nil`
+
+### 省略 return 关键字
+
+```swift
+func multiply(x: Int, y: Int) -> Int {
+  x * y
+}
+```
+
+### 额外指定参数命名标签
+<!--rehype:wrap-class=row-span-2-->
+
+```swift
+func calculate(of numbers: Int...) -> Int {
+  var sum = 0
+
+  for number in numbers {
+      sum += number
+  }
+
+  return sum
+}
+
+// 调用函数时，使用外部参数名
+let result = calculate(of: 1, 2, 3, 4, 5)
+print("Sum: \(result)")
+```
+
+### 函数作为参数
+<!--rehype:wrap-class=row-span-2-->
+
+```swift
+func doMath(
+  operation: (Int, Int) -> Int,
+  a: Int, b: Int
+) -> Int {
+    return operation(a, b)
+}
+// 定义一些可以作为参数传递的函数
+func add(_ a: Int, _ b: Int) -> Int {
+    return a + b
+}
+// 使用 doMath 函数，并将 add 函数作为参数传递
+let result = doMath(5, 3, operation: add)
+print("Addition Result: \(result)")
+```
+
+### 闭包
+
+```swift
+let add: (Int, Int) -> Int = { (a, b) in
+    return a + b
+}
+// 调用闭包
+let result = add(3, 5)
+print("Sum: \(result)")
+```
 
 结构
 ----
@@ -1401,6 +1518,17 @@ let resolution = Resolution(width: 1920)
 let someVideoMode = VideoMode()
 ```
 
+### 类的扩展
+
+```swift
+extension String {
+  var boolValue: Bool {
+    return self == "1"
+  }
+}
+let isTure = "0".boolValue
+```
+
 枚举
 ----
 
@@ -1429,8 +1557,8 @@ enum Dessert {
   case brownie
 }
 
-let customerOrder: Dessert = .cake(flavor: "红色天鹅绒")
-switch customerOrder {
+let custom: Dessert = .cake(flavor: "红色")
+switch custom {
   case let .cake(flavor):
     print("你点了一个 \(flavor) 蛋糕")
   case .brownie: 
@@ -1476,29 +1604,37 @@ enum Dessert {
   case brownie
 }
 
-let order: Dessert = .cake(flavor: "红色天鹅绒")
+let order: Dessert = .cake(flavor: "红色")
 ```
 
-### 实例方法
+### 枚举的可赋值性
 <!--rehype:wrap-class=row-span-2-->
 
 ```swift
-enum Traffic {
-  case light
-  case heavy
-
-  mutating func reportAccident() {
-    self = .heavy
-  }
+enum Content {
+  case empty
+  case text(String)
+  case number(Int)
 }
-
-var currentTraffic: Traffic = .light
-
-currentTraffic.reportAccident()
-// currentTraffic 现在是 .heavy
 ```
 
-就像类和结构一样，枚举也可以有实例方法。如果实例方法改变了枚举的值，则需要将其标记为 `mutating`
+使用 switch 处理可赋值枚举
+
+```swift
+let content = Content.text("Hello")
+switch content {
+  case .empty:
+    print("Value is empty")
+  case .text(let value):
+    print("Value is \(value)")
+  case .number(_): //不调用时，可以省略
+    print("Value is a number")
+}
+// 或者
+if case .text(let value) = content {
+    print("Value is \(value)")
+}
+```
 
 ### 从原始值初始化
 
@@ -1526,6 +1662,353 @@ enum ShirtSize: String {
     return "这件衬衫尺码是 \(self.rawValue)"
   }
 }
+```
+
+### 遍历字符串
+
+```swift
+enum Currency: String {
+  case euro = "EUR"
+  case dollar = "USD"
+  case pound = "GBP"
+}
+```
+
+输出枚举的原始值
+
+```swift
+let euroSymbol = Currency.euro.rawValue
+print("欧元的货币符号是 \(euroSymbol)")
+```
+
+### 实例方法
+
+```swift
+enum Traffic {
+  case light
+  case heavy
+
+  mutating func reportAccident() {
+    self = .heavy
+  }
+}
+```
+
+枚举也可以有实例方法
+
+```swift
+var currentTraffic: Traffic = .light
+currentTraffic.reportAccident()
+// currentTraffic 现在是 .heavy
+```
+
+实例方法改变了枚举的值，则需要将其标记为 `mutating`
+
+扩展
+---
+
+### 什么是扩展
+
+扩展是向现有的类、结构体、枚举或协议类型添加新功能的方法。包括添加新的方法、属性、初始化方法等。
+
+### 为什么要使用扩展
+
+扩展让开发者可以以一种非侵入的方式来增强类型的功能，当我们无法直接修改原始类或结构体时（例如，系统库的类），扩展允许我们在不改变原始源代码的情况下添加新功能。
+
+### 基础语法
+
+```swift
+extension SomeType {
+    // 添加新功能
+}
+```
+
+### 声明扩展
+
+```swift
+struct Person {
+    var name: String
+    var age: Int
+    func eat() {}
+}
+extension Person {
+    // 添加新功能
+}
+extension Person: SomeProtocol {
+     // 实现协议方法、属性
+}
+```
+
+### 扩展计算属性
+
+```swift
+// 扩展可以添加计算属性，不能添加存储属性
+extension Double {
+    var km: Double { self * 1000 }
+    var m: Double { self }
+    var cm: Double { self / 100.0 }
+    var mm: Double { self / 1000.0 }
+}
+let metric: Double = 30.48.cm
+print("1 metric is \(metric.m) meter")
+print("1 metric is \(metric.km) kilometer")
+```
+
+### 扩展可变实例方法
+
+```swift
+extension Double {
+    mutating func cube() {
+        self = self * self * self
+    }
+}
+var boxCube: Double = 2.0
+boxCube.cube()
+print(boxCube)
+```
+
+### 扩展构造器
+
+<!--rehype:wrap-class=col-span-2-->
+
+```swift
+// 给CGRect结构体提供允许center和size的构造器
+extension CGRect {
+    init(center: CGPoint, size: CGSize) {
+        let x: CGFloat = center.x - size.width * 0.5
+        let y: CGFloat = center.y - size.height * 0.5
+        self.init(origin: CGPoint(x: x, y: y), 
+                  size: size)
+    }
+}
+let frame = CGRect(center: CGPoint(x: 100, y: 100), 
+                   size: CGSize(width: 50, height: 50))
+print("Origin is \(frame.origin)")
+```
+
+### 扩展协议
+
+<!--rehype:wrap-class=row-span-3-->
+
+它的工作方式与抽象类类似，适用于在所有实现某种协议的类中提供某些功能的情况（而不需要从一个公共的基类继承）。
+
+```swift
+// 定义协议
+protocol Drawable {
+    func draw()
+}
+
+// 使用协议扩展为 draw 方法提供默认实现
+extension Drawable {
+    func draw() {
+        print("绘制形状")
+    }
+}
+
+// 定义一个符合 Drawable 协议的类 Circle
+class Circle: Drawable {
+    // Circle 可以使用默认的 draw 实现
+    // 或者覆盖它
+}
+
+// 定义另一个符合 Drawable 协议的类 Square
+class Square: Drawable {
+    // 重写 draw 方法以提供自定义实现
+    func draw() {
+        print("画一个正方形")
+    }
+}
+
+// 使用示例
+let circle = Circle()
+circle.draw()  // 打印: 绘制形状
+
+let square = Square()
+square.draw()  // 打印: 画一个正方形
+
+```
+
+你可以使用协议扩展来给协议的任意方法或者计算属性要求提供默认实现。如果遵循类型给这个协议的要求提供了它自己的实现，那么它就会替代扩展中提供的默认实现。
+
+### 扩展方法
+
+<!--rehype:wrap-class=col-span-2-->
+
+```swift
+extension String {
+    func deletingPrefix(_ prefix: String) -> String {
+        guard self.hasPrefix(prefix) else {
+          return self 
+        }
+        return String(self.dropFirst(prefix.count))
+    }
+}
+print("Hello World".deletingPrefix("He"))
+```
+
+### 扩展存储属性
+
+<!--rehype:wrap-class=col-span-2-->
+
+```swift
+// 但可以通过 objc_getAssociatedObject/objc_setAssociatedObject 实现添加存储属性 
+private var fuchsiaKey = "fuchsiaKey"
+extension UIColor {
+    var fuchsia: UIColor? {
+        get {
+            return objc_getAssociatedObject(self, &fuchsiaKey) as? UIColor
+        }
+        set {
+            objc_setAssociatedObject(self, &fuchsiaKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+}
+```
+
+泛型
+---
+
+### 什么是泛型
+
+在Swift中，泛型是一个允许我们创建可以使用任何数据类型的函数、类、结构和协议的特性。
+
+### 为什么使用泛型
+
+泛型使我们能够编写清晰简洁的代码，并能够与任何数据类型一起工作。通过使用占位符（如 `T`），可以减少引入错误的风险。
+
+### 泛型函数
+<!--rehype:wrap-class=row-span-2-->
+
+```swift
+// 接受两个类型相同的参数并交换它们
+func swapTwoValues<T>(_ a: inout T, _ b: inout T) {
+    let temp = a
+    a = b
+    b = temp
+}
+
+var a = 10
+var b = 20
+swapTwoValues(&a, &b)
+print(a) // 打印: 20
+print(b) // 打印: 10
+
+var c = "Hello"
+var d = "World"
+swapTwoValues(&c, &d)
+print(c) // 打印: "World"
+print(d) // 打印: "Hello"
+```
+
+### 基础用法
+
+```swift
+func foo<T, U>(a: T, b: U) {
+  // ...
+}
+
+struct Foo<T, U> {
+  var a: T
+  // ...
+}
+```
+
+在这个例子中，`T`和`U`是一个类型占位符，它表示任何类型，写在尖括号内（如`<T>`）
+
+### 泛型结构体
+
+```swift
+// 定义一个泛型结构体 Box
+// 它有一个名为 value 的泛型属性
+struct Box<T> {
+    var value: T
+}
+
+let intBox = Box(value: 10)
+let stringBox = Box(value: "Hello")
+
+print(intBox.value) // 打印: 10
+print(stringBox.value) // 打印: "Hello"
+```
+
+### 泛型约束
+
+有时我们希望限制泛型的类型范围，可以使用泛型约束。比如，限制泛型类型必须是遵循某个协议的类型
+
+```swift
+struct Box<T: Numeric> {
+    var value: T
+
+    // 计算 value 的平方函数
+    func square() -> T {
+        return value * value
+    }
+}
+
+let intBox = Box(value: 10)
+print(intBox.square()) // 输出 100
+
+let floatBox = Box(value: 5.0)
+print(floatBox.square()) // 输出 25.0
+
+// 以下代码会报错，因为String不遵循Numeric协议
+// let stringBox = Box(value: "Hello")
+```
+
+### 泛型类型别名
+
+<!--rehype:wrap-class=col-span-2-->
+
+为泛型类型创建别名`typealias`，这样可以给泛型类型起一个更具体的名字，使得代码更加清晰易懂
+
+- 示例1
+
+```swift
+// 定义一个泛型类型别名 'IntBox'
+typealias IntBox = Box<Int>
+
+// 使用类型别名创建一个存储 Int 类型值的 Box 实例
+let intBox = IntBox(value: 42)
+print(intBox.value) // 输出 42
+
+```
+
+- 示例2
+
+```swift
+// 定义一个泛型类型别名 'StringBox'，其中 T 被约束为 String
+typealias StringBox<T> = Box<T> where T: StringProtocol
+
+// 使用类型别名创建一个存储 String 类型值的 Box 实例
+let stringBox = StringBox(value: "Hello, world!")
+print(stringBox.value) // 输出 "Hello, world!"
+```
+
+### 泛型协议
+
+```swift
+protocol Storage {
+    associatedtype Item
+    func store(item: Item)
+    func retrieve() -> Item?
+}
+
+class SimpleStorage<T>: Storage {
+    private var items: [T] = []
+
+    func store(item: T) {
+        items.append(item)
+    }
+
+    func retrieve() -> T? {
+        return items.isEmpty ? nil : items.removeLast()
+    }
+}
+
+let intStorage = SimpleStorage<Int>()
+intStorage.store(item: 42)
+print(intStorage.retrieve() ?? "Empty")  
+// 打印: 42
 ```
 
 另见

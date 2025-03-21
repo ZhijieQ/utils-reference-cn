@@ -24,6 +24,7 @@ Linux 命令速查表
 **`w`** | 显示系统中当前登录的用户
 **`whoami`** | 显示您的登录身份
 **`finger username`** | 显示有关用户的信息
+**`sed -ri 's/.*swap.*/#&/' /etc/fstab && swapoff -a`** | 关闭swap
 <!--rehype:className=style-list-->
 
 ### 硬件
@@ -75,6 +76,7 @@ Linux 命令速查表
 :--- | :---
 :--- | :---
 **`ls -al`** | 列出文件-包括常规文件和隐藏文件以及它们的权限
+**`tree`** | 以树形结构列出文件，常用参数有：`-d`查看目录，`-L num`查看num层文件，`-a`查看隐藏文件
 **`pwd`** | 显示当前目录文件路径
 **`mkdir 'directory_name'`** | 创建一个新目录
 **`rm file_name`** | 删除一个文件
@@ -97,7 +99,7 @@ Linux 命令速查表
 <!--rehype:className=style-list-->
 
 ### 进程
-<!--rehype:wrap-class=row-span-3-->
+<!--rehype:wrap-class=row-span-2-->
 
 :--- | :---
 :--- | :---
@@ -108,9 +110,6 @@ Linux 命令速查表
 **`kill pid`** | 使用给定的pid终止进程
 **`killall proc`** | 杀死/终止所有名为proc的进程
 **`pkill process-name`** | 向具有其名称的进程发送信号
-**`bg`** | 将一个在后台暂停的命令，变成继续执行
-**`fg`** | 将后台中的命令调至前台继续运行
-**`fg n`** | job n to the foreground
 **`lsof`** | 列出进程打开的文件 [#](./lsof.md)
 **`renice 19 PID`** | 使进程以非常低的优先级运行
 **`pgrep firefox`** | 查找Firefox进程ID
@@ -156,6 +155,9 @@ Linux 命令速查表
 **`tar -xf files.tar`** | 解压档案文件"files.tar"
 **`tar -zcvf home.tar.gz source-folder`** | 从源文件夹创建压缩的tar存档文件
 **`gzip file`** | 压缩扩展名为.gz的文件
+**`zip -r compressed.zip folder/`** | 递归压缩目录`folder`为压缩文件`compressed.zip`
+**`unzip compressed.zip -d folder/`** | 在目录`folder`下解压文件
+**`unzip -v compressed.zip`** | 查看但不解压文件
 <!--rehype:className=style-list-->
 
 ### 搜索
@@ -217,42 +219,137 @@ Linux 命令速查表
 **`cd /test`** | 将目录更改为/test目录
 <!--rehype:className=style-list-->
 
-快捷键
+### 文件描述符
+<!--rehype:wrap-class=row-span-1-->
+
+:--- | :---
+:--- | :---
+**`0`** | 标准输入
+**`1`** | 标准输出
+**`2`** | 错误输出
+**`/dev/null`** | Linux的空设备文件，俗称“黑洞”
+
+<!--rehype:className=style-list-->
+
+### 输出重定向
+<!--rehype:wrap-class=row-span-2 col-span-2-->
+
+:--- | :---
+:--- | :---
+**`>`** | 覆盖运算符
+**`>>`** | 追加运算符
+**`>&`** | 重定向合并运算符
+**`command > filename`** | 标准输出覆盖写入新文件
+**`command 1> filename`** | 标准输出覆盖写入新文件（同上）
+**`command 2> filename`** | 标准错误覆盖写入新文件
+**`command >> filename`** | 标准输出追加到新文件
+**`command 1>> filename`** | 标准输出追加到新文件（同上）
+**`command 2>> filename`** | 标准错误追加到新文件
+**`2>&1`** | 标准错误重定向到标准输出
+**`1>&2`** | 标准输出重定向到标准错误
+<!--rehype:className=left-align-->
+
+前后台
 ---
 
-### 命令行编辑
+### &（终端关闭，程序也关闭）
 <!--rehype:wrap-class=row-span-2-->
 
 :--- | :---
 :--- | :---
-**Tab** | 自动补全
-**Ctrl+A** | 移动光标到命令行首
-**Ctrl+E** | 移动光标到命令行尾
-**Ctrl+Left** | 光标左移一个单词
-**Ctrl+Right** | 光标右移一个单词
-**Ctrl+K** | 删除光标之后所有字符
-**Ctrl+U** | 清空当前键入的命令
-**Ctrl+W** | 删除光标前的单词
-**Ctrl+Y** | 粘贴`Ctrl+W`或`Ctrl+K`删除的内容
-**Ctrl+D** | 删除当前光标所在字符 (在没有字符时会关闭终端)
-Ctrl+B (Left) | 光标左移（后退）
-Ctrl+F (Right) | 光标右移（前进）
-Ctrl+H (Backspace) | 删除光标的前一个字符
+**`command &`** | 使用后台进程模式执行 command
+**`Ctrl+Z`** | 将当前进程放到后台（但程序是Stopped状态）
+**`jobs`** | 查看任务（状态、ID等）
+**`fg n`** | 将jobID为n的任务切到**前台**运行
+**`bg n`** | 将jobID为n的任务切到**后台**运行
+
+<!--rehype:className=style-list-->
+
+### nohup（终端关闭，程序继续运行）
+<!--rehype:wrap-class=row-span-2-->
+
+:--- | :---
+:--- | :---
+**`nohup command &`** | 后台执行 command，标准输出到 nohup.out
+**`nohup command > log_file &`** | 后台执行 command，标准输出到 log_file
+**`nohup command > log_file 2>&1 &`** | 后台执行 command，标准输出和错误输出到 log_file
+**`nohup command > log_file 2>err_log &`** | 后台执行 command，标准输出到 log_file，错误输出到 err_log
+**`ps/kill`** | 查看进程/结束进程
+
+<!--rehype:className=style-list-->
+
+### screen（创建独立会话）
+<!--rehype:wrap-class=row-span-2-->
+
+:--- | :---
+:--- | :---
+**`screen -S my_session`** | 创建一个名为 my_session 的会话
+**`screen -ls`** | 列出当前所有的 session
+**`screen -r my_session`** | 重新连接 my_session 这个会话
+**`screen -d my_session`** | 脱离 my_session 这个会话
+**`Ctrl+a+d`** | 在 screen 中，脱离当前会话
+**`exit`** | 在 screen 中，退出并删除当前 screen
+**`-X -S my_session quit`** | 删除 my_session 这个会话
+**`screen -wipe`** | 删除所有已经失效的会话
+
+<!--rehype:className=style-list-->
+
+快捷键
+---
+
+### 命令行编辑
+<!--rehype:wrap-class=row-span-2 col-span-2-->
+
+:--- | :---
+:--- | :---
+`Tab` | 自动补全
+`Ctrl`+`A` | 移动光标到命令行首
+`Ctrl`+`E` | 移动光标到命令行尾
+`Ctrl`+`Left` | 光标左移一个单词
+`Ctrl`+`Right` | 光标右移一个单词
+`Ctrl`+`K` | 删除光标之后所有字符
+`Ctrl`+`U` | 清空当前键入的命令
+`Ctrl`+`W` | 删除光标前的单词
+`Ctrl`+`Y` | 粘贴 `Ctrl` + `W` 或 `Ctrl` + `K` 删除的内容
+`Ctrl`+`D` | 删除当前光标所在字符 (在没有字符时会关闭终端)
+`Ctrl`+`B` (Left) | 光标左移（后退）
+`Ctrl`+`F` (Right) | 光标右移（前进）
+`Ctrl`+`H` (Backspace) | 删除光标的前一个字符
+<!--rehype:className=left-align shortcuts-->
 
 ### 其他
 <!--rehype:wrap-class=row-span-2-->
 
 :--- | :---
 :--- | :---
-**Ctrl+L** | 清屏
-**Ctrl+C** | 中断正在执行的程序
-**Ctrl+R** | 按字符串寻找历史命令
-**Ctrl+Z** | 将当前进程放到后台（之后可以用`fg`命令重回到前台）
-**Shift+Insert** | 粘贴
-**Ctrl+PageUp** | 屏幕输出向上翻页
-**Ctrl+PageDown** | 屏幕输出向下翻页
-Ctrl+P (Up) | 上一条命令
-Ctrl+N (Down) | 下一条命令
+`Ctrl`+`L` | 清屏
+`Ctrl`+`C` | 中断正在执行的程序
+`Ctrl`+`R` | 按字符串寻找历史命令
+`Ctrl`+`Z` | 将当前进程放到后台（但程序是Stopped状态）
+`Shift`+`Insert` | 粘贴
+`Ctrl`+`PageUp` | 屏幕输出向上翻页
+`Ctrl`+`PageDown` | 屏幕输出向下翻页
+`Ctrl`+`P` (Up) | 上一条命令
+`Ctrl`+`N` (Down) | 下一条命令
+<!--rehype:className=left-align shortcuts-->
+
+技巧
+---
+
+### linux技巧
+<!--rehype:wrap-class=row-span-2 col-span-2-->
+
+ :---                                          | :---
+:----------------------------------------------| :---
+ **`du -h / \| sort -rh \| head -20`**         | 最大20个文件
+ **`grep -Ev '^\s*($\|#\|;)' example.conf`**   | 查看去掉注释和空行
+ **`echo <passwd> \| passwd root --stdin`**    | 单行改密码
+ **`find /data/app/tmp -mtime +30 -name "*.flv" -exec rm -Rf {} \;`**  | 删除30天前文件
+ **`for file in $(ls); do sed -i 's/nmg/sz/g' "$file"; done`**         | 当前目录修改字符串
+ **`ssh -NfR remote_port:localhost:local_port user@remote_server`**    | ssh代理
+ **`find . -wholename "*.sh" -exec dos2unix {} \;`**     | 修复脚本格式错误
+ **`rsync -avz /source/ user@remote:/destination/`**     | 同步文件和目录到远程服务器，支持压缩和增量传输
+ <!--rehype:className=left-align shortcuts-->  
 
 另见
 ---
